@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--載入bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="container mt-5" id="app">
+        <div class="row">
+            <div class="col-6 m-auto">
+                <h2>購買人資訊</h2>
+                <!-- validation-observer 驗證整體表單 -->
+                <validation-observer v-slot="{ invalid }">
+                    <form @submit.prevent="submitForm">
+                        <div class="form-group">
+                            <validation-provider rules="required" v-slot="{ errors, classes }" class="mt-4">
+                                <label for="姓名">姓名</label>
+                                <input id="姓名" type="text" class="form-control" :class="classes" v-model="form.name">
+                                <span v-if="errors[0]" class="invalid-feedback"> {{  errors[0]}} </span>
+                            </validation-provider>
+                        </div>
+                        <div class="form-group">
+                            <validation-provider rules="required|email" v-slot="{ errors,classes }">
+                                <label for="Email">信箱</label>
+                                <input id="Email" type="email" class="form-control" :class="classes" v-model="form.email">
+                                <span v-if="errors[0]" class="invalid-feedback"> {{  errors[0] }} </span>
+                            </validation-provider>
+                        </div>
+                        <div class="form-group">
+                            <validation-provider rules="required|min:8" v-slot="{ errors,classes }">
+                                <label for="電話">電話</label>
+                                <input id="電話" type="tel" class="form-control" :class="classes" v-model="form.tel">
+                                <span v-if="errors[0]" class="invalid-feedback"> {{  errors[0] }} </span>
+                            </validation-provider>
+                        </div>
+                        <div class="form-group">
+                            <validation-provider rules="required" v-slot="{ errors,classes }">
+                                <label for="地址">地址</label>
+                                <input id="地址" type="text" class="form-control" :class="classes" v-model="form.address">
+                                <span v-if="errors[0]" class="invalid-feedback"> {{  errors[0] }} </span>
+                            </validation-provider>
+                        </div>
+                        <div class="form-group">
+                            <label for="payment">付款方式</label>
+                            <select class="form-control" v-model="form.payment" required>
+                                <option value="" disabled>
+                                    請選擇付款方式
+                                </option>
+                                <option value="WebATM">
+                                    WebATM
+                                </option>
+                                <option value="ATM">
+                                    ATM
+                                </option>
+                                <option value="CVS">
+                                    CVS
+                                </option>
+                                <option value="Barcode">
+                                    Barcode
+                                </option>
+                                <option value="Credit">
+                                    Credit
+                                </option>
+                                <option value="ApplePay">
+                                    ApplePay
+                                </option>
+                                <option value="GooglePay">
+                                    GooglePay
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">留言給賣家</label>
+                            <textarea id="message" type="text" class="form-control" v-model="form.message"></textarea>
+                        </div>
+                        <div class="text-right">
+                            <!-- 送出表單使用 submit 的方法，如果驗證未通過則 disabled 該按鈕 -->
+                            <button type="submit" class="btn btn-outline-info mb-2" :disabled="invalid">確認購買</button>
+                        </div>
+                    </form>
+                </validation-observer>
+            </div>
+        </div>
+    </div>
+
+    <!--載入bootstrap-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!--載入vue.js-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <!--載入vee-validate full的版本（包含規則）-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/3.3.0/vee-validate.full.min.js"></script>
+    
+    <!--載入自己撰寫的js-->
+    <script src="all.js" type="module"></script>
+</body>
+</html>
